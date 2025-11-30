@@ -50,4 +50,4 @@ Sigue estos pasos para correr el proyecto en tu máquina local.
 ### 1. Clonar el repositorio
 ```bash
 git clone [LINK_DE_TU_REPOSITORIO]
-cd prueba-enersinc
+cd prueba-enersinc# prueba-tecnica-enersinc
