@@ -127,11 +127,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://prueba-tecnica-enersinc.vercel.app"
-]
+CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = ['*'] # Para la prueba está bien. En prod real se pone el dominio.
 
