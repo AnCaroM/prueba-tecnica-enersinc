@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../api/axiosClient';
 
-const API_URL = 'http://127.0.0.1:8000/api/personas/'; // Ajusta según tu backend
+const response = await axios.get('personas/');
+const API_URL = response.data;
 
 // 1. Acción asíncrona para obtener personas (GET) 
 export const fetchPersonas = createAsyncThunk(
