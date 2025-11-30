@@ -1,28 +1,47 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../api/axiosClient';
 
-const response = await axios.get('personas/');
-const API_URL = response.data;
+// --- ACCIONES ASÍNCRONAS ---
 
-// 1. Acción asíncrona para obtener personas (GET) 
+// 1. Obtener personas (GET)
 export const fetchPersonas = createAsyncThunk(
     'personas/fetchPersonas',
     async () => {
-        const response = await axios.get(API_URL);
+        // Usamos solo 'personas/' porque axiosClient ya tiene la base URL
+        const response = await axios.get('personas/');
         return response.data;
     }
 );
 
-// 2. Acción asíncrona para crear persona (POST) [cite: 19]
+// 2. Crear persona (POST)
 export const addPersona = createAsyncThunk(
     'personas/addPersona',
     async (nuevaPersona) => {
-        const response = await axios.post(API_URL, nuevaPersona);
+        const response = await axios.post('personas/', nuevaPersona);
         return response.data;
     }
 );
 
-// (Aquí agregarías deletePersona y updatePersona siguiendo el mismo patrón)
+// 3. Eliminar persona (DELETE)
+export const deletePersona = createAsyncThunk(
+    'personas/deletePersona',
+    async (id) => {
+        await axios.delete(`personas/${id}/`);
+        return id;
+    }
+);
+
+// 4. Actualizar persona (PUT)
+export const updatePersona = createAsyncThunk(
+    'personas/updatePersona',
+    async (personaActualizada) => {
+        const { id, ...data } = personaActualizada;
+        const response = await axios.put(`personas/${id}/`, data);
+        return response.data;
+    }
+);
+
+// --- SLICE (REDUCER) ---
 
 const personasSlice = createSlice({
     name: 'personas',
@@ -34,7 +53,7 @@ const personasSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // Casos para fetchPersonas
+            // Fetch
             .addCase(fetchPersonas.pending, (state) => {
                 state.status = 'loading';
             })
@@ -46,41 +65,22 @@ const personasSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.error.message;
             })
-            // Casos para addPersona
+            // Add
             .addCase(addPersona.fulfilled, (state, action) => {
-                state.data.push(action.payload); // Actualizamos estado sin recargar
+                state.data.push(action.payload);
             })
+            // Delete
             .addCase(deletePersona.fulfilled, (state, action) => {
-                // Filtramos la lista para quitar el ID eliminado
                 state.data = state.data.filter((persona) => persona.id !== action.payload);
             })
+            // Update
             .addCase(updatePersona.fulfilled, (state, action) => {
                 const index = state.data.findIndex((p) => p.id === action.payload.id);
                 if (index !== -1) {
-                    state.data[index] = action.payload; // Actualizamos el item en la lista local
+                    state.data[index] = action.payload;
                 }
             });
     },
 });
-
-// Acción para eliminar
-export const deletePersona = createAsyncThunk(
-    'personas/deletePersona',
-    async (id) => {
-        await axios.delete(`personas/${id}/`); // Usa tu instancia de axiosClient
-        return id;
-    }
-);
-
-// Acción para actualizar (PUT)
-export const updatePersona = createAsyncThunk(
-    'personas/updatePersona',
-    async (personaActualizada) => {
-        const { id, ...data } = personaActualizada;
-        // Petición PUT al backend
-        const response = await axios.put(`personas/${id}/`, data);
-        return response.data;
-    }
-);
 
 export default personasSlice.reducer;
