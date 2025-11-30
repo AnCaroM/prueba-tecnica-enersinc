@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-    baseURL: 'https://api-enersinc-andres-caro.onrender.com/api/',
+    baseURL: 'https://api-enersinc-andres-caro.onrender.com/api/personas/',
     headers: {
         'Content-Type': 'application/json',
     },
