@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Creamos una instancia configurada
 const axiosClient = axios.create({
     baseURL: 'https://api-enersinc-andres-caro.onrender.com/api/',
     headers: {
