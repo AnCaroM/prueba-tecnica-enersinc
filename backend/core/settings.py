@@ -130,7 +130,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://prueba-tecnica-enersinc.vercel.app/"
+    "https://prueba-tecnica-enersinc.vercel.app"
 ]
 
 ALLOWED_HOSTS = ['*'] # Para la prueba está bien. En prod real se pone el dominio.
