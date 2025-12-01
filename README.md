@@ -1,40 +1,42 @@
 # Prueba Técnica Full Stack - Gestión de Personas
 
-[cite_start]Este repositorio contiene la solución a la prueba técnica para el proceso de selección de **Enersinc**[cite: 2]. El proyecto consiste en una aplicación web Full Stack que permite gestionar un directorio de personas (CRUD completo) utilizando buenas prácticas de desarrollo y una arquitectura moderna.
+Este repositorio contiene la solución a la prueba técnica para el proceso de selección de **Enersinc**. El proyecto consiste en una aplicación web Full Stack que permite gestionar un directorio de personas (CRUD completo) utilizando buenas prácticas de desarrollo y una arquitectura moderna.
 
 ## 🚀 Demo Desplegado
 ¡Puedes probar la aplicación en vivo aquí!
-* **Frontend:** [INSERTA AQUÍ TU LINK DE VERCEL/NETLIFY]
-* **Backend API:** [INSERTA AQUÍ TU LINK DE RENDER/RAILWAY]
+* **Frontend (Vercel):** [https://prueba-tecnica-enersinc.vercel.app/personas](https://prueba-tecnica-enersinc.vercel.app/personas)
+* **Backend API (Render):** [https://api-enersinc-andres-caro.onrender.com/api/personas/](https://api-enersinc-andres-caro.onrender.com/api/personas/)
 
 ---
 
 ## 🛠 Tecnologías Utilizadas
 
-[cite_start]El proyecto fue desarrollado siguiendo estrictamente los requisitos técnicos solicitados[cite: 8, 16]:
+El proyecto fue desarrollado siguiendo estrictamente los requisitos técnicos solicitados:
 
 ### Backend
 * **Python & Django:** Framework principal.
 * **Django Rest Framework (DRF):** Para la construcción de la API RESTful.
-* **SQLite / PostgreSQL:** Base de datos (SQLite para local, Postgres para producción).
+* **PostgreSQL:** Base de datos en producción (Render).
 * **Cors-headers:** Manejo de seguridad para peticiones cruzadas.
 
 ### Frontend
-* [cite_start]**React:** Inicializado con `create-react-app`[cite: 16].
-* [cite_start]**Redux Toolkit:** Gestión del estado global de la aplicación[cite: 16].
-* [cite_start]**Ant Design:** Librería de componentes UI para una interfaz limpia y responsive[cite: 16].
-* [cite_start]**Axios:** Cliente HTTP configurado de forma modular[cite: 16].
+* **React:** Inicializado con `create-react-app`.
+* **Redux Toolkit:** Gestión del estado global de la aplicación.
+* **Ant Design:** Librería de componentes UI para una interfaz limpia y responsive.
+* **Axios:** Cliente HTTP configurado de forma modular.
 
 ---
 
 ## 📋 Funcionalidades
 La aplicación cumple con el 100% de los requerimientos:
 
-1.  [cite_start]**Listado de Personas:** Tabla interactiva con paginación usando Ant Design[cite: 18].
-2.  [cite_start]**CRUD Completo:** Funcionalidades de Crear, Leer, Actualizar y Eliminar registros[cite: 19, 20].
-3.  [cite_start]**Modelo de Datos:** Incluye los campos: Tipo Documento, Documento, Nombres, Apellidos y Hobbie [cite: 10-14].
-4.  [cite_start]**Feedback al Usuario:** Notificaciones visuales (Toasts) para confirmar acciones exitosas o reportar errores de la API[cite: 21].
-5.  **Validaciones:** Formularios controlados que impiden enviar datos vacíos.
+1.  **Listado de Personas:** Tabla interactiva con paginación y ordenamiento usando Ant Design.
+2.  **CRUD Completo:** Funcionalidades de Crear, Leer, Actualizar y Eliminar registros.
+3.  **Modelo de Datos:** Incluye los campos: Tipo Documento, Documento, Nombres, Apellidos y Hobbie.
+4.  **Feedback al Usuario:** Notificaciones visuales (Toasts) para confirmar acciones exitosas o reportar errores de la API.
+5.  **Validaciones Dobles:**
+    * **Frontend:** Validación en tiempo real (ej: Solo números si no es pasaporte).
+    * **Backend:** Validación de integridad de datos en el serializador.
 
 ---
 
@@ -49,5 +51,87 @@ Sigue estos pasos para correr el proyecto en tu máquina local.
 
 ### 1. Clonar el repositorio
 ```bash
-git clone [LINK_DE_TU_REPOSITORIO]
-cd prueba-enersinc# prueba-tecnica-enersinc
+git clone https://github.com/ancarom/prueba-tecnica-enersinc.git
+cd prueba-tecnica-enersinc
+```
+
+---
+## Configurar el Backend (Django)
+
+```bash
+# Entrar a la carpeta del servidor
+cd backend
+
+# Crear entorno virtual
+python -m venv venv
+
+# Activar entorno virtual
+# Windows:
+.\venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Aplicar migraciones (Crear base de datos SQLite local)
+python manage.py migrate
+
+# Iniciar servidor (correrá en [http://127.0.0.1:8000](http://127.0.0.1:8000))
+python manage.py runserver
+```
+---
+
+## Configurar el Frontend (React)
+
+```bash
+# Entrar a la carpeta del cliente
+cd frontend
+
+# Instalar dependencias
+npm install
+
+# Iniciar aplicación (correrá en http://localhost:3000)
+npm start
+```
+---
+
+## Estructura del Proyecto
+
+El proyecto está organizado de la siguiente manera:
+
+```bash
+prueba-enersinc/
+├── backend/            # API Django Rest Framework
+│   ├── core/           # Configuración (settings, urls)
+│   └── personas/       # App principal (Modelos, Vistas, Serializers)
+│
+└── frontend/           # Cliente React
+    ├── src/
+    │   ├── api/        # Configuración de Axios
+    │   ├── components/ # Componentes UI (Formularios, Modales)
+    │   ├── pages/      # Vistas principales (Tabla)
+    │   └── redux/      # Estado global (Slices, Store)
+```
+
+### Backend (Django)
+```bash
+backend/
+├── core/          # Configuración principal de Django
+├── personas/      # Aplicación de personas
+├── requirements.txt  # Dependencias del proyecto
+└── manage.py       # Script de gestión de Django
+```
+
+### Frontend (React)
+
+```bash
+frontend/
+├── src/           # Código fuente de la aplicación
+├── public/        # Archivos estáticos
+├── package.json   # Dependencias del proyecto
+└── README.md      # Documentación del proyecto
+```
+
+### 👤 Autor
+Desarrollado por Andrés Caro como parte del proceso de selección para Desarrollador Full Stack en Enersinc.

@@ -64,22 +64,19 @@ const PersonaForm = ({ visible, onCancel, currentPersona }) => {
                     </Select>
                 </Form.Item>
 
-                {/* --- AQUÍ ESTÁ EL CAMBIO IMPORTANTE --- */}
                 <Form.Item
                     name="documento"
                     label="Número de Documento"
-                    dependencies={['tipo_documento']} // 1. Vigila el campo anterior
-                    hasFeedback // Muestra un check verde si está bien
+                    dependencies={['tipo_documento']}
+                    hasFeedback
                     rules={[
                         { required: true, message: 'Ingresa el documento' },
-                        // 2. Regla dinámica
                         ({ getFieldValue }) => ({
                             validator(_, value) {
                                 if (!value) return Promise.resolve();
 
                                 const tipo = getFieldValue('tipo_documento');
 
-                                // Si NO es Pasaporte (PAS) y el valor NO son solo números...
                                 if (tipo !== 'PAS' && !/^[0-9]+$/.test(value)) {
                                     return Promise.reject(new Error('Para este documento solo se permiten números'));
                                 }
@@ -91,7 +88,6 @@ const PersonaForm = ({ visible, onCancel, currentPersona }) => {
                 >
                     <Input placeholder="Ej: 123456789" />
                 </Form.Item>
-                {/* -------------------------------------- */}
 
                 <Form.Item
                     name="nombres"

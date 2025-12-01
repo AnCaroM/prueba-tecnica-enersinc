@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../api/axiosClient';
 
-// --- ACCIONES ASÍNCRONAS ---
-
 // 1. Obtener personas (GET)
 export const fetchPersonas = createAsyncThunk(
     'personas/fetchPersonas',
     async () => {
-        // Usamos solo 'personas/' porque axiosClient ya tiene la base URL
         const response = await axios.get('personas/');
         return response.data;
     }
