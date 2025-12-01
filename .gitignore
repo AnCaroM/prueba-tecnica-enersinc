@@ -1,6 +1,7 @@
 # --- SISTEMA OPERATIVO ---
 .DS_Store
 Thumbs.db
+.vscode/
 
 # --- PYTHON / DJANGO ---
 backend/venv/
